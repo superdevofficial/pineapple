@@ -1,4 +1,6 @@
-const Pineaple = require('../build/pineapple.js');
+#!/usr/bin/env node
+
+const Pineaple = require('../lib/pineapple.js');
 
 new Pineaple();
 
