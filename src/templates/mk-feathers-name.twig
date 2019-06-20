@@ -1,0 +1,47 @@
+# {{app.name|capitalize}}
+
+> Présentation de {{app.name}} : {{app.description}}
+
+## Getting Started
+
+Getting up and running is as easy as 1, 2, 3.
+
+1. [NodeJS](https://nodejs.org/) et [npm](https://www.npmjs.com/) doivent être installés.
+2. Installer les dépendances
+
+    ```
+    cd path/to/{{app.name}}; npm install
+    ```
+
+3. Lancer l'application en mode de développement
+
+    ```
+    npm run dev
+    ```
+
+## Tests
+
+Cumcumber js est requis pour faire fonctionner les tests.
+Il faut ensuite lancer la commande `npm run cucumber` et tous les tests se trouvant dans `features/` seront lancés.
+
+## Développement
+
+{% if options.ts == true %}
+Cette application est codé avec [Typescript](https://www.typescriptlang.org/docs/home.html)
+{% endif %}
+
+Il est fortement recommandé d'utiliser [Feathers-plus CLI](https://feathers-plus.github.io/v1/feathers-hooks-common/) pour s'aider lors du développement.
+Voici la liste des commandes à utiliser :
+
+```
+$ npm install -g @feathers-plus/cli          # Installe Feathers-plus CLI
+
+$ feathers-plus generate options             # Spécifie les options pour le développement
+$ feathers-plus generate app                 # Génère la base de l'application
+$ feathers generate authentication           # Ajoute le service d'authentification + le service utilisateurs
+$ feathers-plus generate secret              # Génère la clé secrète pour l'authentification
+$ feathers-plus generate service             # Génère un service avec son modèle
+$ feathers-plus generate graphql             # Génère une entrée GraphQL pour les services
+$ feathers-plus generate all                 # Regénère l'application dans sa totalité du cul
+$ feathers-plus help                         # Affiche les aides
+```

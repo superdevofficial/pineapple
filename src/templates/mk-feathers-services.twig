@@ -1,0 +1,81 @@
+{% if pineapple.config.feathersServicesRoutes == true %}
+  ## Services
+  > Voici la liste des différents services délivrées par l'API
+  {% if services|length > 0 %}
+    {% for service in services %}
+
+      {% set needAuth = false %}
+      {% if app.needAuth %} 
+        {% set needAuth = true %}
+      {% elseif service.needAuth %} 
+        {% set needAuth = true %}
+      {% endif %}
+
+      ### {{service.name|capitalize}}
+      {% if service.model %}
+        #### Modèle
+        {% if service.modelRequired %}
+          Champs requis : {% for key in service.modelRequired|keys %} `{{ service.modelRequired[key]|json_encode }}` {% endfor %}
+          <break>
+        {% endif %}
+        {% if service.modelUnique %}
+          Champs obligatoirements uniques : {% for key in service.modelUnique|keys %} `{{ service.modelUnique[key]|json_encode }}` {% endfor %}
+          <break>
+        {% endif %}
+        ```json
+        {% for key in service.model|keys %}
+          {{ key }}: {{ service.model[key]|json_encode }}
+        {% endfor %}
+        ```
+        <break>
+      {% endif %}
+
+      #### Routes
+      {% if service.customClass %}
+        Il s'agit d'un service **custom**, les routes ne seront pas les même que d'habitudes.
+        La classe se nomme **{{service.customClass.name}}**.
+        
+        {% if service.customClass.default == true %}
+          * Elle est exporté en mode "_default_"
+          <break>
+        {% endif %}
+        
+        {% if service.customClass.interface %}
+          * Elle {{service.customClass.interface}}
+          <break>
+        {% endif %}
+
+        |Scope|Nom|Params|Réponse|
+        |---|---|---|---|---|
+        {% for method in service.customClass.methods %}
+          |{{method.scope}}|**{{method.name}}**|`{{method.params|join(', ')}}`|{{method.response}}|
+        {% endfor %}
+      {% else %}
+        |Nom|Protocole|Routes|Auth|
+        |---|---|---|---|---|
+        |Find|GET|{{service.path}}|{{needAuth}}|
+        |Get|GET|{{service.path}}/:id|{{needAuth}}|
+        |Create|POST|{{service.path}}|{{needAuth}}|
+        |Patch|PUT|{{service.path}}/:id|{{needAuth}}|
+        |Update|UPDATE|{{service.path}}/:id|{{needAuth}}|
+        |Remove|DELETE|{{service.path}}/:id|{{needAuth}}|
+      {% endif %}
+      <break>
+
+      {% if pineapple.config.feathersHooks %}
+        #### Hooks
+        ```javascript
+        // Before :
+        {{service.hooks.before|json_encode}}
+        <break>
+        // After :
+        {{service.hooks.after|json_encode}}
+        ```
+        <break>
+      {% endif %}
+
+      ___
+      <break>
+    {% endfor %}
+  {% endif %}
+{% endif %}
