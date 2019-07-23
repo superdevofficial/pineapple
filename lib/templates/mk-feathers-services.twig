@@ -41,18 +41,18 @@
         {% endif %}
         
         {% if service.customClass.interface %}
-          * Elle {{service.customClass.interface}}
+          * Elle `{{service.customClass.interface}}`
           <break>
         {% endif %}
 
         |Scope|Nom|Params|Réponse|
-        |---|---|---|---|---|
+        |---|---|---|---|
         {% for method in service.customClass.methods %}
-          |{{method.scope}}|**{{method.name}}**|`{{method.params|join(', ')}}`|{{method.response}}|
+          |{{method.scope}}|**{{method.name}}**|`{{method.params|join(', ')|replace({'|':','})}}`|`{{method.response|replace({'|':','})}}`|
         {% endfor %}
       {% else %}
-        |Nom|Protocole|Routes|Auth|
-        |---|---|---|---|---|
+        |Nom|Protocole|Routes|Authentification|
+        |---|---|---|---|
         |Find|GET|{{service.path}}|{{needAuth}}|
         |Get|GET|{{service.path}}/:id|{{needAuth}}|
         |Create|POST|{{service.path}}|{{needAuth}}|

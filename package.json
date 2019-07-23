@@ -1,5 +1,5 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.8",
   "author": {
     "name": "Romain GUILLAUME",
     "email": "r.guillaume@superdev.fr",
@@ -43,6 +43,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/superdevofficial/feathers-auth-verifier.git"
+    "url": "https://github.com/superdevofficial/pineapple.git"
   }
 }
